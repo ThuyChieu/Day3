@@ -6,6 +6,7 @@ public class Person {
     protected Date dob;
     protected String address;
 
+    //constructor khởi tạo các giá trị để cung cấp dữ liệu cho các đối tượng
     public Person(
             String name, String gender,
             Date dob, String address

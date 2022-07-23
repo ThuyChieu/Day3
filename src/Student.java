@@ -1,9 +1,10 @@
 import java.util.Date;
 
 public class Student extends Person {
-    String studentID;
-    double gpa;
+    private String studentID;
+    private double gpa;
 
+    //constructor khởi tạo các giá trị để cung cấp dữ liệu cho các đối tượng
     public Student(
             String name, String gender,
             Date dob, String address,

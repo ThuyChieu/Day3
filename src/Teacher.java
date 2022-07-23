@@ -5,12 +5,13 @@ public class Teacher extends Person {
     private int hourlyWages;
     private int teachingHoursPerMonth;
 
+    //constructor khởi tạo các giá trị để cung cấp dữ liệu cho các đối tượng
     public Teacher(String name, String gender,
                    Date dob, String address,
                    String teachingClas, int hourlyWages,
                    int teachingHoursPerMonth
     ) {
-        super(name, gender, dob, address);
+        super(name, gender, dob, address); //gọi trực tiếp Constructor của lớp cha
         this.teachingHoursPerMonth = teachingHoursPerMonth;
         this.teachingClass = teachingClas;
         this.hourlyWages = hourlyWages;
