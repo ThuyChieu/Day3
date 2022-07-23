@@ -32,10 +32,10 @@ public class Person {
     @Override
     public String toString() {
         return "Person{" +
-                "name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
-                ", dob=" + dob +
-                ", address='" + address + '\'' +
+                "Name='" + name + '\'' +
+                ", Gender='" + gender + '\'' +
+                ", DateOfBirth=" + dob +
+                ", Address='" + address + '\'' +
                 '}';
     }
 }

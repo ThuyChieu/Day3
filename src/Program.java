@@ -1,87 +1,70 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Scanner;
-
 public class Program {
     public static void main(String[] args) {
-        inputFromFile();
-    }
+        Utilities.inputFromFile();
 
-    public static <T> T input(String question, String type) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println(question);
-
-        T result = null;
-        while (result == null) {
-            try {
-                String in = sc.nextLine();
-                result = convert(in, type);
-            } catch (Exception e) {
-                System.out.println("Input is invalid, try again: ");
-            }
+        boolean isContinue = true;
+        while (isContinue) {
+            isContinue = execute();
         }
-
-        sc.close();
-        return result;
     }
 
-    public static Object inputFromFile() {
-        try {
-            Scanner sc = new Scanner(new File("src/input.txt"));
+    public static boolean execute() {
+        System.out.println("--------ACTIONS--------");
+        System.out.println("1. Show all data");
+        System.out.println("2. Add new Student");
+        System.out.println("3. Add new Teacher");
+        System.out.println("4. Filter students that have scholarship");
+        System.out.println("5. Find student by id");
+        System.out.println("6. Find teacher by name");
+        System.out.println("7. Get teacher that has the highest salary");
+        System.out.println("8. Sort student by score");
+        System.out.println("9. Sort teacher by salary");
+        System.out.println("0. Exit");
 
-            while (sc.hasNext()) {
-                String line = sc.nextLine();
-                String[] items = line.split(",");
-                ArrayList<String> listItems = new ArrayList<>(Arrays.asList(items));
-
-                int type = (int) convert(listItems.get(0), "Integer");
-
-                switch (type) {
-                    case 1:
-                        String name = (String) Program.input("Enter student's name: ", "String");
-                        String gender = (String) Program.input("Enter student's gender: ", "String");
-                        Date dob = (Date) Program.input("Enter student's date of birth: ", "Date");
-                        String address = (String) Program.input("Enter student's address: ", "String");
-                        String studentID = (String) Program.input("Enter student ID: ", "String");
-                        double gpa = (double) Program.input("Enter student's GPA: ", "Double");
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Invalid file");
-        }
-
-        return null;
-    }
-
-    public static <T> T convert(String value, String type) throws Exception {
-        Object convertedValue = null;
-        switch (type) {
-            case "String":
-                convertedValue = (Object) value;
+        int index = (int) Utilities.input("Your choice -> ", "Integer");
+        switch (index) {
+            case 1:
+                System.out.println("----Student List----");
+                System.out.println(Student.students);
+                System.out.println("----Teacher List----");
+                System.out.println(Teacher.teachers);
                 break;
 
-            case "Integer":
-                convertedValue = (Object) Integer.parseInt(value);
+            case 2:
+                Student.addFromConsole();
                 break;
 
-            case "Double":
-                convertedValue = (Object) Double.parseDouble(value);
+            case 3:
+                Teacher.addFromConsole();
                 break;
 
-            case "Date":
-                SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
-                dateFormatter.setLenient(false);
-                convertedValue = (Object) dateFormatter.parse(value);
+            case 4:
+                System.out.println(Student.filterScholarshipStudents());
                 break;
+
+            case 5:
+                String id = (String) Utilities.input("Enter student ID: ", "String");
+                Student foundStudent = Student.findById(id);
+
+                if (foundStudent == null) System.out.println("Not Found");
+                else System.out.println(foundStudent);
+                break;
+
+            case 6:
+                String name = (String) Utilities.input("Enter teacher name: ", "String");
+                System.out.println(Teacher.findByName(name));
+                break;
+
+            case 0:
+                System.out.println("Bye 🙂");
+                return false;
 
             default:
-                throw new Exception("Invalid type");
+                System.out.println("Invalid choice");
+                break;
         }
 
-        return (T) convertedValue;
+        Utilities.input("Press enter to continue...", "String");
+        return true;
     }
 }
